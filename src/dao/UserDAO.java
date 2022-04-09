@@ -94,6 +94,23 @@ public class UserDAO {
 		Session.put("login_id", null);
 		return conn.delete(userid);
 	}
+	
+//	외부로부터 사용자 id를 전달받는 메소드 
+	public void contactSeller(String userid) {
+//		conn.select에 userid를 넘겨주어 해당되는 정보를 HashSet타입으로 받는다.
+		HashSet<String> rs = conn.select(0, userid);
+//		마찬가지로 해당 전화번호를 result로 받을 것이다. 
+		String result = "";
+//		해당 유저 정보도 1개에 불과하지만 HashSet으로 받았기에 foreach로 정보를 가져왔다.
+		for (String line : rs) {
+//			datas 배열에 유저 정보를 담고
+			String[] datas = line.split("\t");
+//			전화번호가 있는 배열방을 result에 담는다.
+			result += "연락처 : "+datas[4]+"\n"; 
+		}
+//		해당 정보를 바로 출력했다. 
+		System.out.println(result);
+	}
 }
 
 

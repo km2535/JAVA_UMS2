@@ -93,6 +93,59 @@ public class ProductDAO {
 		}
 		return resultMsg;
 	}
+	
+	public void search(int prodnum) {
+		HashSet<String> hi = conn.select(0, prodnum+"");
+		String result = "";
+		for (String line : hi) {
+			String[] datas = line.split("\t");
+				result += String.format("상세 내용 : %s", datas[4]);
+		}
+		
+		System.out.println(result);
+	}
+	
+	
+//	prodnum은 사용자로부터 int타입으로 매개변수를 받는다.
+	public boolean likecnt(int prodnum) {
+//		search 메소드와 동일하게 conn.select를 이용하여 HashSet타입으로 만든다.
+		HashSet<String> hi = conn.select(0, prodnum+"");
+//		그 결과를 result에 담을 것이다.
+		String result = "";
+//		기존에 좋아요 갯수를 가져와서 그 좋아요 갯수에서 1개를 추가하는 방식으로 만들 것이다.
+//		기존의 좋아요를 가지고 오기위해 아래와 같이 만든다. 
+//		편의상 방식은 search와 동일하게 가져왔다. 
+		for (String line : hi) {
+			String[] datas = line.split("\t");
+//			좋아요는 5번방에 들어있다. 
+				result += String.format("%s", datas[5]);
+		}
+//		result는 문자열 타입으로 정수타입으로 형변환시키고 1을 더한 값을 likecnt에 할당한다.
+		int likecnt = Integer.parseInt(result) + 1;
+//		상품을 수정하기 위해 update메소드를 이용했다.
+//		수정되는 상품번호는 prodnum이고 수정할 자리는 좋아요 자리인 5번이다.
+//		좋아요가 추가된 likecnt를 newData매개변수 자리에 두면 된다.
+		return conn.update(prodnum+"", 5, (likecnt+""));
+	}
+	
+	// 상품번호를 받는 메소드임.
+	public String searchPhone(int prodnum) {
+//		상품 정보를 가져오는 코드는 동일함.
+		HashSet<String> hi = conn.select(0, prodnum+"");
+//		해당 사용자id를 result에 담을 것임.
+		String result = "";
+//		상품에 대한 정보를 가져온다.(search와 동일)
+		for (String line : hi) {
+			String[] datas = line.split("\t");
+//			사용자 id는 6번방에 있다. 
+				result += String.format("%s", datas[6]);
+		}
+//		사용자 id를 return 시킨다. String타입 메소드로 변경함.
+		return result;
+	}
+	
+	
+	
 }
 
 

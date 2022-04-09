@@ -77,8 +77,9 @@ public class MainView {
 				sc = new Scanner(System.in);
 				String keyword = sc.nextLine();
 				System.out.println(pdao.search(keyword));
-				System.out.println("자세히 볼 상품번호 : ");
-				prodnum = sc.nextInt();
+//				System.out.println("자세히 볼 상품번호 : ");
+//				prodnum = sc.nextInt();
+				new ProductInfoView();
 //				자세히 볼 상품번호를 선택했다면 그 번호에 해당하는 상품 정보를 띄워주는
 //				ProductInfoView 만들기!
 //				1. 좋아요 누르기
